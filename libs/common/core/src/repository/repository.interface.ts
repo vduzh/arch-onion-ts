@@ -11,11 +11,11 @@ import { Filter } from './filter.interface';
 
 // NOTE: You cannot use interfaces since they are not present at runtime, but you can use an abstract class.
 export interface Repository<T extends BaseModel<ID>, ID> {
-  findById(id: ID): T | null;
+  findById(id: ID): Promise<T | null>;
 
-  find(filter: Filter<ID>): T[];
+  find(filter: Filter<ID>): Promise<T[]>;
 
-  save(obj: T): T;
+  save(obj: T): Promise<T>;
 
-  delete(id: ID): boolean;
+  delete(id: ID): Promise<boolean>;
 }

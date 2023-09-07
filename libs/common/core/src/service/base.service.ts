@@ -12,19 +12,19 @@ import { Repository } from '../repository/repository.interface';
 export class BaseService<T extends BaseModel<ID>, ID> {
   constructor(protected repository: Repository<T, ID>) {}
 
-  findById(id: ID): T {
+  findById(id: ID): Promise<T> {
     return this.repository.findById(id);
   }
 
-  find(filter: Filter<ID> = {}): T[] {
+  find(filter: Filter<ID> = {}): Promise<T[]> {
     return this.repository.find(filter);
   }
 
-  save(obj: T): T {
+  save(obj: T): Promise<T> {
     return this.repository.save(obj);
   }
 
-  delete(id: ID): boolean {
+  delete(id: ID): Promise<boolean> {
     return this.repository.delete(id);
   }
 }

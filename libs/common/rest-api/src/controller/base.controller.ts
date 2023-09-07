@@ -14,12 +14,12 @@ export abstract class BaseController<
   public abstract toModel(dto: D): M;
 
   @Get()
-  getAll(): D[] {
-    return this.service.find().map((model) => this.toDTO(model));
+  async getAll(): Promise<D[]> {
+    return (await this.service.find()).map((model) => this.toDTO(model));
   }
 
   @Get(':id')
-  getById(@Param('id') id: ID): D {
-    return this.toDTO(this.service.findById(id));
+  async getById(@Param('id') id: ID): Promise<D> {
+    return this.toDTO(await this.service.findById(id));
   }
 }
