@@ -8,7 +8,7 @@ import { BaseModel } from '@app/common/core';
  */
 export class Note extends BaseModel<string> {
   constructor(
-    public id: string,
+    public id: string | undefined,
     public title: string,
   ) {
     super(id);

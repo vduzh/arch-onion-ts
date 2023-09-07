@@ -1,18 +1,25 @@
 import { Get, Param } from '@nestjs/common';
 import { BaseModel, BaseService } from '@app/common/core';
+import { BaseDTO } from './dto/base.dto';
 
-export class BaseController<T extends BaseModel<ID>, ID> {
-  constructor(protected readonly service: BaseService<T, ID>) {}
+export abstract class BaseController<
+  D extends BaseDTO<ID>,
+  M extends BaseModel<ID>,
+  ID,
+> {
+  constructor(protected readonly service: BaseService<M, ID>) {}
+
+  public abstract toDTO(model: M): D;
+
+  public abstract toModel(dto: D): M;
 
   @Get()
-  getAll(): T[] {
-    return this.service.find();
-    //return { ...model };
+  getAll(): D[] {
+    return this.service.find().map((model) => this.toDTO(model));
   }
 
   @Get(':id')
-  getById(@Param('id') id: ID): T {
-    return this.service.findById(id);
-    //return { ...model };
+  getById(@Param('id') id: ID): D {
+    return this.toDTO(this.service.findById(id));
   }
 }
