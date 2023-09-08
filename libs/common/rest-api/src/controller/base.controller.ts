@@ -1,4 +1,4 @@
-import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { BaseModel, BaseService } from '@app/common/core';
 import { BaseDTO } from './dto/base.dto';
 
@@ -25,17 +25,25 @@ export abstract class BaseController<
 
   @Post()
   async add(@Body() dto: D): Promise<D> {
-    const model = await this.service.save(this.toModel(dto));
-    return this.toDTO(await this.service.save(model));
+    return this.toDTO(await this.service.save(this.toModel(dto)));
   }
 
   @Put(':id')
   async update(@Body() dto: D, @Param('id') id: ID): Promise<D> {
-    const d = { ...dto, id };
-    return this.toDTO(await this.service.save(this.toModel(d)));
+    const newDto = { ...dto, id };
+    return this.toDTO(await this.service.save(this.toModel(newDto)));
   }
 
-  //TODOD: implement patch
+  @Patch(':id')
+  async patchAuthor(@Body() dto: D, @Param('id') id: ID): Promise<D> {
+    const patchedDto = {
+      ...this.toDTO(await this.service.findById(id)),
+      ...dto,
+      id,
+    };
+
+    return this.toDTO(await this.service.save(this.toModel(patchedDto)));
+  }
 
   @Delete(':id')
   async deleteAuthor(@Param('id') id: ID): Promise<boolean> {
