@@ -19,19 +19,21 @@ export class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
 
   save(obj: T): Promise<T> {
     if (!obj.id) {
-      // add new element
-      const entity = { ...obj, id: this.data.length };
-      this.data.push(entity);
-      return Promise.resolve(entity);
+      // add a new element
+      const newEntity = { ...obj, id: this.data.length + 1 };
+      this.data.push(newEntity);
+      return Promise.resolve(newEntity);
     }
 
+    // update an existing element
     const index = this.data.findIndex((item) => item.id === obj.id);
-    if (index) {
-      this.data[index] = obj;
-      return Promise.resolve(obj);
-    } else {
-      this.data.push(obj);
+    if (index === -1) {
+      // TODO: handle error prtoperly maybe with error and return null instead
+      return Promise.reject(new Error('Entity not found'));
     }
+
+    this.data[index] = obj;
+    return Promise.resolve(obj);
   }
 
   delete(id: ID): Promise<boolean> {
