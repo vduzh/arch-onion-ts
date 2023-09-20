@@ -5,7 +5,7 @@ import { InMemoryBaseRepostory } from '@app/common/in-memory-repository';
 import * as notes from './data/notes.json';
 
 @Injectable()
-export class InMemoryNoteRepository extends InMemoryBaseRepostory<
+export class NoteInMemoryRepository extends InMemoryBaseRepostory<
   Note,
   string
 > {

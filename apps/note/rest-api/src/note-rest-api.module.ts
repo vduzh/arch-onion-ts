@@ -1,20 +1,11 @@
-import { NoteService } from '@app/note/core';
 import { Module } from '@nestjs/common';
-import { InMemoryNoteRepository } from '@app/note/in-memory-repository';
+import { NoteInMemoryServiceProviderModule } from '@app/note/in-memory-service-provider';
 import { NoteController } from './controller/note.controller';
 import { AppController } from './controller/app.controller';
 
-const noteServiceProvider = {
-  provide: NoteService,
-  useFactory: (repositoryProvider: InMemoryNoteRepository) => {
-    return new NoteService(repositoryProvider);
-  },
-  inject: [InMemoryNoteRepository],
-};
-
 @Module({
-  imports: [],
+  imports: [NoteInMemoryServiceProviderModule],
   controllers: [AppController, NoteController],
-  providers: [InMemoryNoteRepository, noteServiceProvider],
+  providers: [],
 })
 export class NoteRestApiModule {}

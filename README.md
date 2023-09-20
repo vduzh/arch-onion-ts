@@ -12,15 +12,24 @@
 - `nest g lib rest-common` with the default prefix
 - `nest g lib in-memory-repository-common` with the default prefix
 
-- `nest g lib notes-core` with the default prefix
-- `nest g lib notes-in-memory-repository` with the default prefix
+- `nest g lib note/core` with the default prefix
+- `nest g lib note/in-memory-repository` with the default prefix
+- `nest g lib note/in-memory-service-provider` with the default prefix
 
-- `nest g app -p notes-rest-api notes-rest-api`
+- `nest g app note/rest-api`
+- `nest g app note/graphql-api`
+
+# Build
+
+- `nest build note-rest-api`
+- `nest build note-graphql-api`
 
 # Run
 
-- `yarn start:dev`
+- `yarn start:dev` or `yarn start:dev note-rest-api`
+- `yarn start:dev note-graphql-api`
 
 # Check
 
-- `localhost:3000/`
+- `http://localhost:3000/`, `http://localhost:3000/notes`
+- `http://localhost:3001/`

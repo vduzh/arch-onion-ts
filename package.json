@@ -72,11 +72,12 @@
     "moduleNameMapper": {
       "^@app/common/core(|/.*)$": "<rootDir>/libs/common/core/src/$1",
       "^@app/common/rest-api(|/.*)$": "<rootDir>/libs/common/rest/src/$1",
-      "^@app/in-memory-repository-common(|/.*)$": "<rootDir>/libs/common/in-memory-repository/src/$1",
+      "^@app/common/in-memory-repository(|/.*)$": "<rootDir>/libs/common/in-memory-repository/src/$1",
       "^@app/note/core(|/.*)$": "<rootDir>/libs/note/core/src/$1",
-      "^@app/notes-repository(|/.*)$": "<rootDir>/libs/note/repository/src/$1",
-      "^@app/note-service(|/.*)$": "<rootDir>/libs/note/service/src/$1",
-      "^@app/notes-in-memory-repository(|/.*)$": "<rootDir>/libs/note/in-memory-repository/src/$1"
+      "^@app/note/repository(|/.*)$": "<rootDir>/libs/note/repository/src/$1",
+      "^@app/note/service(|/.*)$": "<rootDir>/libs/note/service/src/$1",
+      "^@app/note/in-memory-repository(|/.*)$": "<rootDir>/libs/note/in-memory-repository/src/$1",
+      "^@app/note/in-memory-service-provider(|/.*)$": "<rootDir>/libs/note/in-memory-service-provider/src/$1"
     }
   }
 }

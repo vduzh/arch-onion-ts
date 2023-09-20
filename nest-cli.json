@@ -19,6 +19,15 @@
         "tsConfigPath": "apps/note/rest-api/tsconfig.app.json"
       }
     },
+    "note-graphql-api": {
+      "type": "application",
+      "root": "apps/note/graphql-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/note/graphql-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/note/graphql-api/tsconfig.app.json"
+      }
+    },
     "common-core": {
       "type": "library",
       "root": "libs/common/core",
@@ -62,6 +71,15 @@
       "sourceRoot": "libs/note/in-memory-repository/src",
       "compilerOptions": {
         "tsConfigPath": "libs/note/in-memory-repository/tsconfig.lib.json"
+      }
+    },
+    "note/in-memory-service-provider": {
+      "type": "library",
+      "root": "libs/note/in-memory-service-provider",
+      "entryFile": "index",
+      "sourceRoot": "libs/note/in-memory-service-provider/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/note/in-memory-service-provider/tsconfig.lib.json"
       }
     }
   }

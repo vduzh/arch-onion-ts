@@ -5,6 +5,10 @@ import { NoteDTO } from './dto/note.dto';
 
 @Controller('notes')
 export class NoteController extends BaseController<NoteDTO, Note, string> {
+  constructor(protected readonly service: NoteService) {
+    super(service);
+  }
+
   public toDTO(model: Note): NoteDTO {
     return { ...model };
   }
@@ -16,8 +20,5 @@ export class NoteController extends BaseController<NoteDTO, Note, string> {
     };
 
     return res;
-  }
-  constructor(protected readonly service: NoteService) {
-    super(service);
   }
 }
