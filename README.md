@@ -1,6 +1,7 @@
 # Installation
 
 - `npm i -g @nestjs/cli`
+- `yarn add @nestjs/graphql @nestjs/apollo @apollo/server graphql`
 
 # Create a new project
 
