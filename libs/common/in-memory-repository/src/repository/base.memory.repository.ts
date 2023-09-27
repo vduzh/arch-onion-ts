@@ -17,10 +17,10 @@ export class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
     return Promise.resolve(this.data);
   }
 
-  save(obj: T): Promise<T> {
+  save(obj: T): Promise<T | null> {
     if (!obj.id) {
       // add a new element
-      const newEntity = { ...obj, id: this.data.length + 1 };
+      const newEntity = { ...obj, id: (this.data.length + 1).toString() };
       this.data.push(newEntity);
       return Promise.resolve(newEntity);
     }
@@ -28,8 +28,7 @@ export class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
     // update an existing element
     const index = this.data.findIndex((item) => item.id === obj.id);
     if (index === -1) {
-      // TODO: handle error prtoperly maybe with error and return null instead
-      return Promise.reject(new Error('Entity not found'));
+      return Promise.resolve(null);
     }
 
     this.data[index] = obj;
@@ -38,7 +37,7 @@ export class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
 
   delete(id: ID): Promise<boolean> {
     const index = this.data.findIndex((item) => item.id === id);
-    if (index) {
+    if (index !== -1) {
       this.data.slice(index, index + 1);
       return Promise.resolve(true);
     }

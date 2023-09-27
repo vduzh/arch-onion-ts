@@ -15,7 +15,7 @@ export interface Repository<T extends BaseModel<ID>, ID> {
 
   find(filter: Filter<ID>): Promise<T[]>;
 
-  save(obj: T): Promise<T>;
+  save(obj: T): Promise<T | null>;
 
   delete(id: ID): Promise<boolean>;
 }

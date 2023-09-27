@@ -12,7 +12,7 @@ import { Repository } from '../repository/repository.interface';
 export class BaseService<T extends BaseModel<ID>, ID> {
   constructor(protected repository: Repository<T, ID>) {}
 
-  findById(id: ID): Promise<T> {
+  findById(id: ID): Promise<T | null> {
     return this.repository.findById(id);
   }
 
@@ -20,7 +20,7 @@ export class BaseService<T extends BaseModel<ID>, ID> {
     return this.repository.find(filter);
   }
 
-  save(obj: T): Promise<T> {
+  save(obj: T): Promise<T | null> {
     return this.repository.save(obj);
   }
 

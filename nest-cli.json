@@ -73,7 +73,7 @@
         "tsConfigPath": "libs/note/in-memory-repository/tsconfig.lib.json"
       }
     },
-    "note/in-memory-service-provider": {
+    "note-in-memory-service-provider": {
       "type": "library",
       "root": "libs/note/in-memory-service-provider",
       "entryFile": "index",

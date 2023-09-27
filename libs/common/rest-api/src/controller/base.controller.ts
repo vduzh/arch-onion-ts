@@ -1,4 +1,14 @@
-import { Body, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { BaseModel, BaseService } from '@app/common/core';
 import { BaseDTO } from './dto/base.dto';
 
@@ -21,7 +31,11 @@ export abstract class BaseController<
 
   @Get(':id')
   async getById(@Param('id') id: ID): Promise<D> {
-    return this.toDTO(await this.service.findById(id));
+    const obj = await this.service.findById(id);
+    if (!obj) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return this.toDTO(obj);
   }
 
   @Post()
@@ -31,8 +45,11 @@ export abstract class BaseController<
 
   @Put(':id')
   async update(@Body() dto: D, @Param('id') id: ID): Promise<D> {
-    const newDto = { ...dto, id };
-    return this.toDTO(await this.service.save(this.toModel(newDto)));
+    const obj = await this.service.save(this.toModel({ ...dto, id }));
+    if (!obj) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return this.toDTO(obj);
   }
 
   @Patch(':id')
@@ -43,11 +60,17 @@ export abstract class BaseController<
       id,
     };
 
-    return this.toDTO(await this.service.save(this.toModel(patchedDto)));
+    const obj = await this.service.save(this.toModel(patchedDto));
+    if (!obj) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return this.toDTO(obj);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: ID): Promise<boolean> {
-    return await this.service.delete(id);
+  async delete(@Param('id') id: ID): Promise<void> {
+    if (!(await this.service.delete(id))) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
   }
 }

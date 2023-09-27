@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { NoteController } from './note.controller';
 import { NoteService } from '@app/note/core';
 
@@ -76,9 +77,21 @@ describe('NoteController', () => {
   it('should delete a note', async () => {
     service.delete = jest.fn().mockResolvedValue(true);
 
-    const res = await controller.delete('1');
+    await controller.delete('1');
+    expect(service.delete).toHaveBeenCalled();
+  });
+
+  it('should delete return 404 code', async () => {
+    service.delete = jest.fn().mockResolvedValue(false);
+
+    try {
+      await controller.delete('1');
+    } catch (err) {
+      expect(err).toBeInstanceOf(HttpException);
+      const e = err as HttpException;
+      expect(e.getStatus()).toBe(HttpStatus.NOT_FOUND);
+    }
 
     expect(service.delete).toHaveBeenCalled();
-    expect(res).toBeTruthy();
   });
 });
