@@ -2,9 +2,15 @@ import { BaseController } from '@app/common/rest-api';
 import { Note, NoteService } from '@app/note/core';
 import { Controller } from '@nestjs/common';
 import { NoteDTO } from './dto/note.dto';
+import { NotePatchDTO } from './dto/note-pacth.dto';
 
 @Controller('notes')
-export class NoteController extends BaseController<NoteDTO, Note, string> {
+export class NoteController extends BaseController<
+  NoteDTO,
+  NotePatchDTO,
+  Note,
+  string
+> {
   constructor(protected readonly service: NoteService) {
     super(service);
   }

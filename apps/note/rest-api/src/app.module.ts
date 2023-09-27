@@ -7,4 +7,4 @@ import { RestApiModule } from './rest/rest-api.module';
   controllers: [AppController],
   providers: [],
 })
-export class NoteRestApiModule {}
+export class AppModule {}

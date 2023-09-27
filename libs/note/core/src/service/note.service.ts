@@ -10,7 +10,7 @@ import { NoteRepository } from '../repository/note.repository';
  * separation of concerns in mind.
  */
 export class NoteService extends BaseService<Note, string> {
-  constructor(protected repository: NoteRepository) {
+  constructor(public repository: NoteRepository | null) {
     super(repository);
   }
 

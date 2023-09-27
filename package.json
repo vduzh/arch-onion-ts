@@ -75,7 +75,7 @@
     ],
     "moduleNameMapper": {
       "^@app/common/core(|/.*)$": "<rootDir>/libs/common/core/src/$1",
-      "^@app/common/rest-api(|/.*)$": "<rootDir>/libs/common/rest/src/$1",
+      "^@app/common/rest-api(|/.*)$": "<rootDir>/libs/common/rest-api/src/$1",
       "^@app/common/in-memory-repository(|/.*)$": "<rootDir>/libs/common/in-memory-repository/src/$1",
       "^@app/note/core(|/.*)$": "<rootDir>/libs/note/core/src/$1",
       "^@app/note/repository(|/.*)$": "<rootDir>/libs/note/repository/src/$1",

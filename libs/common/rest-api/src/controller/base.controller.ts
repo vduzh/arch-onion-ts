@@ -4,6 +4,7 @@ import { BaseDTO } from './dto/base.dto';
 
 export abstract class BaseController<
   D extends BaseDTO<ID>,
+  P extends BaseDTO<ID>,
   M extends BaseModel<ID>,
   ID,
 > {
@@ -35,7 +36,7 @@ export abstract class BaseController<
   }
 
   @Patch(':id')
-  async patchAuthor(@Body() dto: D, @Param('id') id: ID): Promise<D> {
+  async patch(@Body() dto: D, @Param('id') id: ID): Promise<D> {
     const patchedDto = {
       ...this.toDTO(await this.service.findById(id)),
       ...dto,
@@ -46,7 +47,7 @@ export abstract class BaseController<
   }
 
   @Delete(':id')
-  async deleteAuthor(@Param('id') id: ID): Promise<boolean> {
+  async delete(@Param('id') id: ID): Promise<boolean> {
     return await this.service.delete(id);
   }
 }
