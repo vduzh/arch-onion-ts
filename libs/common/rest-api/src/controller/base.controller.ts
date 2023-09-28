@@ -53,7 +53,7 @@ export abstract class BaseController<
   }
 
   @Patch(':id')
-  async patch(@Body() dto: D, @Param('id') id: ID): Promise<D> {
+  async patch(@Body() dto: P, @Param('id') id: ID): Promise<D> {
     const patchedDto = {
       ...this.toDTO(await this.service.findById(id)),
       ...dto,
