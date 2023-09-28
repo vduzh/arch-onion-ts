@@ -1,13 +1,13 @@
 import { BaseController } from '@app/common/rest-api';
 import { Note, NoteService } from '@app/note/core';
 import { Controller } from '@nestjs/common';
-import { NoteDTO } from './dto/note.dto';
-import { NotePatchDTO } from './dto/note-pacth.dto';
+import { NoteDto } from './dto/note.dto';
+import { NotePatchDto } from './dto/note-pacth.dto';
 
 @Controller('notes')
 export class NoteController extends BaseController<
-  NoteDTO,
-  NotePatchDTO,
+  NoteDto,
+  NotePatchDto,
   Note,
   string
 > {
@@ -15,11 +15,11 @@ export class NoteController extends BaseController<
     super(service);
   }
 
-  public toDTO(model: Note): NoteDTO {
+  public toDTO(model: Note): NoteDto {
     return { ...model };
   }
 
-  public toModel(dto: NoteDTO): Note {
+  public toModel(dto: NoteDto): Note {
     const res: Note = {
       id: dto.id,
       title: dto.title || '',

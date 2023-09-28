@@ -1,3 +1,3 @@
-export class BaseDTO<ID> {
+export class BaseDto<ID> {
   id?: ID;
 }

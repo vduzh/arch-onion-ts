@@ -6,6 +6,7 @@ export class NoteInput {
   @Field((type) => ID, { nullable: true })
   id?: string;
 
-  @Field()
-  title: string;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Field((type) => String, { nullable: true })
+  title?: string;
 }

@@ -10,11 +10,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { BaseModel, BaseService } from '@app/common/core';
-import { BaseDTO } from './dto/base.dto';
+import { BaseDto } from './dto/base.dto';
 
 export abstract class BaseController<
-  D extends BaseDTO<ID>,
-  P extends BaseDTO<ID>,
+  D extends BaseDto<ID>,
+  P extends BaseDto<ID>,
   M extends BaseModel<ID>,
   ID,
 > {

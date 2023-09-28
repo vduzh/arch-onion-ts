@@ -19,8 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json",
     "test:rest-api": "jest ./apps/note/rest-api/src",
+    "test:rest-api-ok:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json",
     "test:rest-api:e2e": "jest ./apps/note/rest-api/test --testRegex=\".e2e-spec.ts$\"",
-    "test:rest-api-old:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json"
+    "test:graphql-api": "jest ./apps/note/graphql-api/src",
+    "test:graphql-api:e2e": "jest ./apps/note/graphql-api/test  --testRegex=\".e2e-spec.ts$\""
   },
   "dependencies": {
     "@apollo/server": "^4.9.3",
