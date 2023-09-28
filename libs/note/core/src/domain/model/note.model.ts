@@ -7,10 +7,5 @@ import { BaseModel } from '@app/common/core';
  * without any heavy code or dependencies.
  */
 export class Note extends BaseModel<string> {
-  constructor(
-    public id: string | undefined,
-    public title: string,
-  ) {
-    super(id);
-  }
+  title: string;
 }

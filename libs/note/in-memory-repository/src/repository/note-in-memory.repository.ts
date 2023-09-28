@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { Note } from '@app/note/core';
-import { InMemoryBaseRepostory } from '@app/common/in-memory-repository';
+import { InMemoryRepository } from '@app/common/in-memory-repository';
 import * as notes from './data/notes.json';
 
 @Injectable()
-export class NoteInMemoryRepository extends InMemoryBaseRepostory<
-  Note,
-  string
-> {
+export class NoteInMemoryRepository extends InMemoryRepository<Note, string> {
   constructor() {
     super(notes);
   }

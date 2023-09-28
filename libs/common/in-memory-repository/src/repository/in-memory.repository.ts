@@ -1,6 +1,6 @@
 import { Filter, BaseModel, Repository } from '@app/common/core';
 
-export abstract class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
+export class InMemoryRepository<T extends BaseModel<ID>, ID>
   implements Repository<T, ID>
 {
   constructor(protected readonly data: T[] = []) {}
@@ -11,7 +11,7 @@ export abstract class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  find(filter: Filter<ID>): Promise<T[]> {
+  find(filter?: Filter<ID>): Promise<T[]> {
     return Promise.resolve(this.data);
   }
 

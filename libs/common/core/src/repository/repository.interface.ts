@@ -13,7 +13,7 @@ import { Filter } from './filter.interface';
 export interface Repository<T extends BaseModel<ID>, ID> {
   findById(id: ID): Promise<T | null>;
 
-  find(filter: Filter<ID>): Promise<T[]>;
+  find(filter?: Filter<ID>): Promise<T[]>;
 
   save(obj: T): Promise<T | null>;
 

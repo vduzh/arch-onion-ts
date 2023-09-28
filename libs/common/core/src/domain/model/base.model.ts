@@ -5,5 +5,5 @@
  * without any heavy code or dependencies.
  */
 export class BaseModel<ID> {
-  constructor(public id: ID | undefined) {}
+  id?: ID;
 }
