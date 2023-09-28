@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
 import { Filter, BaseModel, Repository } from '@app/common/core';
 
-@Injectable()
-export class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
+export abstract class InMemoryBaseRepostory<T extends BaseModel<ID>, ID>
   implements Repository<T, ID>
 {
   constructor(protected readonly data: T[] = []) {}
