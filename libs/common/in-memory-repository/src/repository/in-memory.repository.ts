@@ -36,7 +36,7 @@ export class InMemoryRepository<T extends BaseModel<ID>, ID>
   delete(id: ID): Promise<boolean> {
     const index = this.data.findIndex((item) => item.id === id);
     if (index !== -1) {
-      this.data.slice(index, index + 1);
+      this.data.splice(index, index + 1);
       return Promise.resolve(true);
     }
     return Promise.resolve(false);
