@@ -32,5 +32,5 @@
 
 # Check
 
-- `http://localhost:3000/`, `http://localhost:3000/notes`
-- `http://localhost:3001/`
+- REST: `http://localhost:3000/`, `http://localhost:3000/notes`
+- GraphQL: `http://localhost:3001/graphql`

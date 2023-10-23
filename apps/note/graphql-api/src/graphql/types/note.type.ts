@@ -1,11 +1,8 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseType } from './base.type';
 
 @ObjectType()
-export class Note {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Field((type) => ID, { nullable: true })
-  id?: string;
-
+export class Note extends BaseType<string> {
   @Field()
   title: string;
 }

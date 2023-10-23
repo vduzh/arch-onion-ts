@@ -2,19 +2,35 @@ import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Note as NoteDto } from '../types/note.type';
 import { NoteInput } from '../types/note.input';
 import { Note, NoteService } from '@app/note/core';
+import { BaseResolver } from './base.resolver';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 @Resolver((of) => NoteDto)
-export class NoteResolver {
-  constructor(private service: NoteService) {}
+export class NoteResolver extends BaseResolver<
+  NoteDto,
+  Note,
+  NoteInput,
+  NoteInput,
+  string
+> {
+  constructor(protected service: NoteService) {
+    super(service);
+  }
 
-  //public abstract toDTO(model: M): D;
-  public toDTO(model: Note): NoteDto | null {
+  public modelToDto(model: Note): NoteDto | null {
     return model ? { ...model } : null;
   }
 
-  //public abstract toModel(dto: D): M;
-  public toModel(dto: NoteDto): Note | null {
+  public inputToDto(input: NoteInput): NoteDto | null {
+    return input
+      ? {
+          ...input,
+          title: input.title as string,
+        }
+      : null;
+  }
+
+  public dtoToModel(dto: NoteDto): Note | null {
     if (!dto) {
       return null;
     }
@@ -30,7 +46,7 @@ export class NoteResolver {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Query((returns) => [NoteDto])
   async notes(): Promise<NoteDto[]> {
-    return (await this.service.find()).map((model) => this.toDTO(model));
+    return this.list();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,7 +54,7 @@ export class NoteResolver {
   async note(
     @Args('id', { type: () => ID }) id: string,
   ): Promise<NoteDto | null> {
-    return this.toDTO(await this.service.findById(id));
+    return this.get(id);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,12 +62,8 @@ export class NoteResolver {
   async saveNote(
     @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
   ): Promise<NoteDto | null> {
-    // TODO: validate note input
-
-    // Convert input into Dto
-    const dto: NoteDto = { id: note.id, title: note.title || '' };
-    // save dto
-    return this.toDTO(await this.service.save(this.toModel(dto)));
+    // // TODO: validate note input
+    return this.save(note);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,13 +71,9 @@ export class NoteResolver {
   async pacthNote(
     @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
   ): Promise<NoteDto | null> {
-    // TODO: validate note input - check for id not null
-    const id = note.id as string;
-
-    // pacth the current dto
-    const dto = { ...this.toDTO(await this.service.findById(id)), ...note };
-
-    return this.toDTO(await this.service.save(this.toModel(dto)));
+    // // TODO: validate note input - check for id not null
+    // const id = note.id as string;
+    return this.pacth(note);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,6 +81,6 @@ export class NoteResolver {
   async deleteNote(
     @Args('id', { type: () => ID }) id: string,
   ): Promise<boolean> {
-    return this.service.delete(id);
+    return this.delete(id);
   }
 }
