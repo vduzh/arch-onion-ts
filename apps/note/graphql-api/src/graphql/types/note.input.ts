@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { BaseInput } from './base.input';
+import { BaseInput } from '@app/common/graphql-api';
 
 @InputType()
 export class NoteInput extends BaseInput<string> {

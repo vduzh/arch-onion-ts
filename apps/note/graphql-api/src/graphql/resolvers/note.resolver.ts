@@ -2,7 +2,7 @@ import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Note as NoteDto } from '../types/note.type';
 import { NoteInput } from '../types/note.input';
 import { Note, NoteService } from '@app/note/core';
-import { BaseResolver } from './base.resolver';
+import { BaseResolver } from '@app/common/graphql-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 @Resolver((of) => NoteDto)

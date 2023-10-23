@@ -19,33 +19,21 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
-      "@app/common/core": [
-        "libs/common/core/src"
-      ],
-      "@app/common/core/*": [
-        "libs/common/core/src/*"
-      ],
+      "@app/common/core": ["libs/common/core/src"],
+      "@app/common/core/*": ["libs/common/core/src/*"],
       "@app/common/in-memory-repository": [
         "libs/common/in-memory-repository/src"
       ],
       "@app/common/in-memory-repository/*": [
         "libs/common/in-memory-repository/src/*"
       ],
-      "@app/common/rest-api": [
-        "libs/common/rest-api/src"
-      ],
-      "@app/common/rest-api/*": [
-        "libs/common/rest-api/src/*"
-      ],
-      "@app/note/core": [
-        "libs/note/core/src"
-      ],
-      "@app/note/core/*": [
-        "libs/note/core/src/*"
-      ],
-      "@app/note/in-memory-repository": [
-        "libs/note/in-memory-repository/src"
-      ],
+      "@app/common/rest-api": ["libs/common/rest-api/src"],
+      "@app/common/rest-api/*": ["libs/common/rest-api/src/*"],
+      "@app/common/graphql-api": ["libs/common/graphql-api/src"],
+      "@app/common/graphql-api/*": ["libs/common/graphql-api/src/*"],
+      "@app/note/core": ["libs/note/core/src"],
+      "@app/note/core/*": ["libs/note/core/src/*"],
+      "@app/note/in-memory-repository": ["libs/note/in-memory-repository/src"],
       "@app/note/in-memory-repository/*": [
         "libs/note/in-memory-repository/src/*"
       ],
