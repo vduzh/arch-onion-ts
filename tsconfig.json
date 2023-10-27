@@ -19,29 +19,38 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
-      "@app/common/core": ["libs/common/core/src"],
-      "@app/common/core/*": ["libs/common/core/src/*"],
-      "@app/common/in-memory-repository": [
-        "libs/common/in-memory-repository/src"
+      "@app/common/core/domain": ["libs/common/core/domain/src"],
+      "@app/common/core/domain/*": ["libs/common/core/domain/src/*"],
+      "@app/common/core/application": ["libs/common/core/application/src"],
+      "@app/common/core/application/*": ["libs/common/core/application/src/*"],
+
+      "@app/common/infrastructure/in-memory-repository": [
+        "libs/common/infrastructure/in-memory-repository/src"
       ],
-      "@app/common/in-memory-repository/*": [
-        "libs/common/in-memory-repository/src/*"
+      "@app/common/infrastructure/in-memory-repository/*": [
+        "libs/common/infrastructure/in-memory-repository/src/*"
       ],
-      "@app/common/rest-api": ["libs/common/rest-api/src"],
-      "@app/common/rest-api/*": ["libs/common/rest-api/src/*"],
-      "@app/common/graphql-api": ["libs/common/graphql-api/src"],
-      "@app/common/graphql-api/*": ["libs/common/graphql-api/src/*"],
-      "@app/note/core": ["libs/note/core/src"],
-      "@app/note/core/*": ["libs/note/core/src/*"],
-      "@app/note/in-memory-repository": ["libs/note/in-memory-repository/src"],
-      "@app/note/in-memory-repository/*": [
-        "libs/note/in-memory-repository/src/*"
+
+      "@app/common/infrastructure/rest-api": ["libs/common/infrastructure/rest-api/src"],
+      "@app/common/infrastructure/rest-api/*": ["libs/common/infrastructure/rest-api/src/*"],
+      "@app/common/infrastructure/graphql-api": ["libs/common/infrastructure/graphql-api/src"],
+      "@app/common/infrastructure/graphql-api/*": ["libs/common/infrastructure/graphql-api/src/*"],
+
+      "@app/note/core/domain": ["libs/note/core/domain/src"],
+      "@app/note/core/domain/*": ["libs/note/core/domain/src/*"],
+
+      "@app/note/core/application": ["libs/note/core/application/src"],
+      "@app/note/core/application/*": ["libs/note/core/application/src/*"],
+
+      "@app/note/infrastructure/in-memory-repository": ["libs/note/infrastructure/in-memory-repository/src"],
+      "@app/note/infrastructure/in-memory-repository/*": [
+        "libs/note/infrastructure/in-memory-repository/src/*"
       ],
-      "@app/note/in-memory-service-provider": [
-        "libs/note/in-memory-service-provider/src"
+      "@app/note/infrastructure/in-memory-service-provider": [
+        "libs/note/infrastructure/in-memory-service-provider/src"
       ],
-      "@app/note/in-memory-service-provider/*": [
-        "libs/note/in-memory-service-provider/src/*"
+      "@app/note/infrastructure/in-memory-service-provider/*": [
+        "libs/note/infrastructure/in-memory-service-provider/src/*"
       ]
     }
   }

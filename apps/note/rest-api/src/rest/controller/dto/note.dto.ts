@@ -1,5 +1,5 @@
-import { BaseDto } from '@app/common/rest-api';
+import { Dto } from '@app/common/infrastructure/rest-api';
 
-export class NoteDto extends BaseDto<string> {
+export class NoteDto extends Dto<string> {
   title?: string;
 }

@@ -1,8 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { BaseInput } from '@app/common/graphql-api';
+import { BasicInput } from '@app/common/infrastructure/graphql-api';
 
 @InputType()
-export class NoteInput extends BaseInput<string> {
+export class NoteInput extends BasicInput<string> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Field((type) => String, { nullable: true })
   title?: string;

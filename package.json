@@ -18,11 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json",
-    "test:rest-api": "jest ./apps/note/rest-api/src",
-    "test:rest-api-ok:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json",
-    "test:rest-api:e2e": "jest ./apps/note/rest-api/test --testRegex=\".e2e-spec.ts$\"",
-    "test:graphql-api": "jest ./apps/note/graphql-api/src",
-    "test:graphql-api:e2e": "jest ./apps/note/graphql-api/test  --testRegex=\".e2e-spec.ts$\""
+    "test:note-rest-api": "jest ./apps/note/rest-api/src",
+    "test:note-rest-api-ok:e2e": "jest --config ./apps/note/rest-api/test/jest-e2e.json",
+    "test:note-rest-api:e2e": "jest ./apps/note/rest-api/test --testRegex=\".e2e-spec.ts$\"",
+    "test:note-graphql-api": "jest ./apps/note/graphql-api/src",
+    "test:note-graphql-api:e2e": "jest ./apps/note/graphql-api/test  --testRegex=\".e2e-spec.ts$\""
   },
   "dependencies": {
     "@apollo/server": "^4.9.3",
@@ -79,14 +79,19 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/common/core(|/.*)$": "<rootDir>/libs/common/core/src/$1",
-      "^@app/common/rest-api(|/.*)$": "<rootDir>/libs/common/rest-api/src/$1",
-      "^@app/common/in-memory-repository(|/.*)$": "<rootDir>/libs/common/in-memory-repository/src/$1",
-      "^@app/note/core(|/.*)$": "<rootDir>/libs/note/core/src/$1",
-      "^@app/note/repository(|/.*)$": "<rootDir>/libs/note/repository/src/$1",
-      "^@app/note/service(|/.*)$": "<rootDir>/libs/note/service/src/$1",
-      "^@app/note/in-memory-repository(|/.*)$": "<rootDir>/libs/note/in-memory-repository/src/$1",
-      "^@app/note/in-memory-service-provider(|/.*)$": "<rootDir>/libs/note/in-memory-service-provider/src/$1"
+      "^@app/common/core/domain(|/.*)$": "<rootDir>/libs/common/core/domain/src/$1",
+      "^@app/common/core/application(|/.*)$": "<rootDir>/libs/common/core/application/src/$1",
+
+      "^@app/common/infrastructure/rest-api(|/.*)$": "<rootDir>/libs/common/infrastructure/rest-api/src/$1",
+      "^@app/common/infrastructure/graphql-api(|/.*)$": "<rootDir>/libs/common/infrastructure/graphql-api/src/$1",
+
+      "^@app/common/infrastructure/in-memory-repository(|/.*)$": "<rootDir>/libs/common/infrastructure/in-memory-repository/src/$1",
+
+      "^@app/note/core/domain(|/.*)$": "<rootDir>/libs/note/core/domain/src/$1",
+      "^@app/note/core/application(|/.*)$": "<rootDir>/libs/note/core/application/src/$1",
+
+      "^@app/note/infrastructure/in-memory-repository(|/.*)$": "<rootDir>/libs/note/infrastructure/in-memory-repository/src/$1",
+      "^@app/note/infrastructure/in-memory-service-provider(|/.*)$": "<rootDir>/libs/note/infrastructure/in-memory-service-provider/src/$1"
     }
   }
 }

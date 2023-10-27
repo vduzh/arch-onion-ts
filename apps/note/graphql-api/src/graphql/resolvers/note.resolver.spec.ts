@@ -1,4 +1,4 @@
-import { NoteService } from '@app/note/core';
+import { NoteService } from '@app/note/core/application';
 import { NoteResolver } from './note.resolver';
 
 const NOTE_1 = { id: '1', title: 'First note' };

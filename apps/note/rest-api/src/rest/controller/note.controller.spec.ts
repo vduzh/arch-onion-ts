@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { NoteController } from './note.controller';
-import { NoteService } from '@app/note/core';
+import { NoteService } from '@app/note/core/application';
 
 const NOTE_1 = { id: '1', title: 'First note' };
 const NOTE_2 = { id: '2', title: 'Second note' };
@@ -65,13 +65,13 @@ describe('NoteController', () => {
     const saveMock = jest.fn();
     service.save = saveMock.mockResolvedValue(savedNote);
 
-    const pacthDTO = { title: 'First note updated' };
-    const dto = await controller.patch(pacthDTO, note.id);
+    const patchDTO = { title: 'First note updated' };
+    const dto = await controller.patch(patchDTO, note.id);
 
     expect(service.findById).toHaveBeenCalled();
     expect(service.save).toHaveBeenCalled();
     expect(saveMock.mock.calls[0][0]).toMatchObject(savedNote);
-    expect(dto).toMatchObject({ ...pacthDTO, id: note.id });
+    expect(dto).toMatchObject({ ...patchDTO, id: note.id });
   });
 
   it('should delete a note', async () => {

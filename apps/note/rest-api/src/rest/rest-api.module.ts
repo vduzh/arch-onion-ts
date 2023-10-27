@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { NoteInMemoryServiceProviderModule } from '@app/note/in-memory-service-provider';
+import { NoteInMemoryServiceProviderModule } from '@app/note/infrastructure/in-memory-service-provider';
 import { NoteController } from './controller/note.controller';
 
 @Module({

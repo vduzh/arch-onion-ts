@@ -1,11 +1,12 @@
-import { BaseController } from '@app/common/rest-api';
-import { Note, NoteService } from '@app/note/core';
 import { Controller } from '@nestjs/common';
+import { Note } from '@app/note/core/domain';
+import { NoteService } from '@app/note/core/application';
+import { AbstractController } from '@app/common/infrastructure/rest-api';
 import { NoteDto } from './dto/note.dto';
 import { NotePatchDto } from './dto/note-pacth.dto';
 
 @Controller('notes')
-export class NoteController extends BaseController<
+export class NoteController extends AbstractController<
   NoteDto,
   NotePatchDto,
   Note,
