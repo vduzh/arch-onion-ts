@@ -1,38 +1,51 @@
-import { GenericService } from '@app/common/core/application';
+import { AbstractService } from '@app/common/core/application';
 import { Note, NoteRepository } from '@app/note/core/domain';
+import { NoteDto } from './dto/note.dto';
+
 /**
- * The Service layer holds interfaces with common operations, such as Add, Save, Edit, and Delete.
- * Also, this layer is used to communicate between the UI layer and repository layer.
- * The Service layer also could hold business logic for an entity. In this layer,
- * service interfaces are kept separate from its implementation, keeping loose coupling and
- * separation of concerns in mind.
+ * Notes business logic
  */
-export class NoteService extends GenericService<Note, string> {
-  constructor(public repository: NoteRepository | null) {
+export class NoteService extends AbstractService<NoteDto, Note, string> {
+  constructor(protected repository: NoteRepository) {
     super(repository);
   }
 
-  createNote(note: Note): Promise<Note> | null {
-    // validate Note
+  protected dtoToModel(dto: NoteDto): Note {
+    return { id: dto.id, title: dto.title as string };
+  }
 
-    if ('isValid') {
-      // call Domain Service: PriceComputation - compute price and taxes
-      // call Domain Service: NoteRepository - save the note
-      // call Domain Service: InventoryService - update inventory
-      // call Domain Service: CreditCardService - debit amount
-      // call Domain Service: NoteRepository - update the note
-      // call Domain Service: NotificationService - notify the user of completion
-      // return Result with Successful
+  protected modelToDto(model: Note): NoteDto {
+    return { ...model };
+  }
+
+  // async getNote(id: string): Promise<NoteDto | null> {
+  //   const note = await this.repository.findById(id);
+  //   return note ? Promise.resolve(this.modelToDto(note)) : null;
+  // }
+
+  // async getNotes(filter: Filter<string> = {}): Promise<NoteDto[]> {
+  //   return this.repository.find(filter);
+  // }
+
+  /*
+  async createNote(dto: NoteDto): Promise<NoteDto | ErrorDto> {
+    // validate dto
+    if (!dto.title) {
+      return Promise.reject({ message: 'Title is required.' });
     }
 
-    // return Result with failure
-    return null;
+    //if ('isValid') {
+    // call Domain Service: PriceComputation - compute price and taxes
+    // call Domain Service: NoteRepository - save the note
+    // call Domain Service: InventoryService - update inventory
+    // call Domain Service: CreditCardService - debit amount
+    // call Domain Service: NoteRepository - update the note
+    // call Domain Service: NotificationService - notify the user of completion
+    //}
   }
 
-  execSomeUseCase(note: Note): void {
-    // mark the note as complete in the DB
-    console.log(note, 'complete');
-    // send the comfirmation e-mail
-    console.log(note, 'confirmed');
-  }
+  // async killNote(id: string): Promise<boolean> {
+  //   return this.repository.delete(id);
+  // }
+   */
 }
