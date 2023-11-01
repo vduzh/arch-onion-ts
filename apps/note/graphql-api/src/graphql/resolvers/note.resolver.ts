@@ -1,47 +1,36 @@
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Note as NoteDto } from '../types/note.type';
+import { Note } from '../types/note.type';
 import { NoteInput } from '../types/note.input';
-import { Note } from '@app/note/core/domain';
-import { AbstarctResolver } from '@app/common/infrastructure/graphql-api';
-import { NoteService } from '@app/note/core/application';
+import { BasicResolver } from '@app/common/infrastructure/graphql-api';
+import { NoteService, NoteDto } from '@app/note/core/application';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 @Resolver((of) => NoteDto)
-export class NoteResolver extends AbstarctResolver<
-  NoteDto,
+export class NoteResolver extends BasicResolver<
+  string,
   Note,
   NoteInput,
   NoteInput,
-  string
+  NoteDto
 > {
   constructor(protected service: NoteService) {
     super(service);
   }
 
-  public modelToDto(model: Note): NoteDto | null {
-    return model ? { ...model } : null;
+  public typeToDto(t: Note): NoteDto | null {
+    return t ? { id: t.id, title: t.title || '' } : null;
   }
 
-  public inputToDto(input: NoteInput): NoteDto | null {
-    return input
-      ? {
-          ...input,
-          title: input.title as string,
-        }
-      : null;
-  }
-
-  public dtoToModel(dto: NoteDto): Note | null {
-    if (!dto) {
+  public inputToType(input: NoteInput): Note | null {
+    if (!input) {
       return null;
     }
 
-    const res: Note = {
-      id: dto.id,
-      title: dto.title || '',
-    };
+    return { ...input, title: input.title as string };
+  }
 
-    return res;
+  public dtoToType(dto: NoteDto): Note | null {
+    return dto ? { ...dto, title: dto.title || '' } : null;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -69,12 +58,12 @@ export class NoteResolver extends AbstarctResolver<
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Mutation((returns) => NoteDto, { nullable: true })
-  async pacthNote(
+  async patchNote(
     @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
   ): Promise<NoteDto | null> {
     // // TODO: validate note input - check for id not null
     // const id = note.id as string;
-    return this.pacth(note);
+    return this.patch(note);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

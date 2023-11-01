@@ -8,6 +8,6 @@
  *
  * Thus, the presentation layer is completely isolated from domain layer.
  */
-export class Dto<ID> {
+export class AppDto<ID> {
   id?: ID;
 }

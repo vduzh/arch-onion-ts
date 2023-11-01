@@ -6,7 +6,7 @@
  */
 
 // Encapsulates attributes and entity behaviour
-export class Model<ID> {
+export class BasicModel<ID> {
   /* Data */
   id?: ID;
 

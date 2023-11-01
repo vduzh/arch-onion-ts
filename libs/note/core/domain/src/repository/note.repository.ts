@@ -10,4 +10,4 @@ import { Note } from '../model/note.model';
  */
 
 // NOTE: You cannot use interfaces since they are not present at runtime, but you can use an abstract class.
-export interface NoteRepository extends Repository<Note, string> {}
+export abstract class NoteRepository extends Repository<Note, string> {}

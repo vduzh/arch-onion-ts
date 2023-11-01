@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { NoteInMemoryServiceProviderModule } from '@app/note/infrastructure/in-memory-service-provider';
 import { NoteController } from './controller/note.controller';
+import { NoteInMemoryServiceProviderModule } from '@app/note/infrastructure/in-memory-service-provider';
 
 @Module({
   imports: [NoteInMemoryServiceProviderModule],

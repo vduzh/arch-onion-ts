@@ -1,3 +1,3 @@
 export * from './model/note.model';
 export * from './repository/note.repository';
-export * from './service/some.service';
+export * from './service/some-note.service';

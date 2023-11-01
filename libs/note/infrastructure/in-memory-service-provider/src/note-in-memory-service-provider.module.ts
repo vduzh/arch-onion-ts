@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { noteServiceProvider } from './provider/note-in-memory-service.provider';
+import { noteServiceProvider } from './provider/note-service.provider';
 import { NoteInMemoryRepositoryModule } from '@app/note/infrastructure/in-memory-repository';
 
 @Module({

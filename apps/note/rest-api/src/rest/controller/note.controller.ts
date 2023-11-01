@@ -1,31 +1,28 @@
 import { Controller } from '@nestjs/common';
-import { Note } from '@app/note/core/domain';
-import { NoteService } from '@app/note/core/application';
-import { AbstractController } from '@app/common/infrastructure/rest-api';
-import { NoteDto } from './dto/note.dto';
-import { NotePatchDto } from './dto/note-pacth.dto';
+import { NoteService, NoteDto } from '@app/note/core/application';
+import { BasicController } from '@app/common/infrastructure/rest-api';
+import { NoteRestDto as Note } from './dto/note.rest-dto';
+import { NoteRestPatchDTO as NotePatch } from './dto/note.rest-pacth-dto';
 
 @Controller('notes')
-export class NoteController extends AbstractController<
+export class NoteController extends BasicController<
+  string,
   NoteDto,
-  NotePatchDto,
   Note,
-  string
+  NotePatch
 > {
   constructor(protected readonly service: NoteService) {
     super(service);
   }
 
-  public toDTO(model: Note): NoteDto {
-    return { ...model };
+  public toRestDto(dto: NoteDto): Note {
+    return { ...dto };
   }
 
-  public toModel(dto: NoteDto): Note {
-    const res: Note = {
-      id: dto.id,
-      title: dto.title || '',
+  public toAppDto(res: Note): NoteDto {
+    return {
+      id: res.id,
+      title: res.title || '',
     };
-
-    return res;
   }
 }

@@ -1,5 +1,5 @@
-import { Dto } from '@app/common/core/application';
+import { AppDto } from '@app/common/core/application';
 
-export class NoteDto extends Dto<string> {
+export class NoteDto extends AppDto<string> {
   title?: string;
 }

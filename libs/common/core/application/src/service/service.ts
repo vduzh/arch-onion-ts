@@ -1,6 +1,6 @@
-import { Filter } from '@app/common/core/domain/repository/filter.interface';
-import { Dto } from '../service/dto/dto';
-import { ErrorDto } from "@app/common/core/application/service/dto/error.dto";
+import { Filter } from '@app/common/core/domain/repository/filter';
+import { AppDto } from './dto/app.dto';
+import { ErrorDto } from './dto/error.dto';
 
 /**
  * The Service layer holds interfaces with common operations, such as Add, Save, Edit, and Delete.
@@ -13,15 +13,15 @@ import { ErrorDto } from "@app/common/core/application/service/dto/error.dto";
  * - Checkout the order
  *
  * In this layer, service interfaces are kept separate from its implementation, keeping loose coupling
- * and separation of concerns in mind.
+ * and separation of concerns in mind. *
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface Service<D extends Dto<ID>, ID> {
-  findById(id: ID): Promise<D | null>;
+// NOTE: You cannot use interfaces since they are not present at runtime, but you can use an abstract class.
+export abstract class Service<D extends AppDto<ID>, ID> {
+  abstract findById(id: ID): Promise<D | null>;
 
-  find(filter?: Filter<ID>): Promise<D[]>;
+  abstract find(filter?: Filter<ID>): Promise<D[]>;
 
-  save(dto: D): Promise<D | ErrorDto>;
+  abstract save(dto: D): Promise<D | ErrorDto>;
 
-  delete(id: ID): Promise<boolean>;
+  abstract delete(id: ID): Promise<boolean>;
 }

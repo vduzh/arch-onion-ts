@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { NoteInMemoryRepository } from './repository/note-in-memory.repository';
+import { NoteRepositoryImpl } from './repository/note.repository.impl';
+import { NoteDataSource } from './repository/note.data.source';
 
 @Module({
-  providers: [NoteInMemoryRepository],
-  exports: [NoteInMemoryRepository],
+  providers: [NoteDataSource, NoteRepositoryImpl],
+  exports: [NoteDataSource, NoteRepositoryImpl],
 })
 export class NoteInMemoryRepositoryModule {}

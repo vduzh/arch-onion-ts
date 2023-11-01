@@ -1,5 +1,5 @@
-import { Model } from '../model/model';
-import { Filter } from './filter.interface';
+import { BasicModel } from '../model/basic.model';
+import { Filter } from './filter';
 
 /**
  * This layer creates an abstraction between the domain entities and business logic of an application.
@@ -13,12 +13,12 @@ import { Filter } from './filter.interface';
  *
  * NOTE: You cannot use interfaces since they are not present at runtime, but you can use an abstract class.
  */
-export interface Repository<T extends Model<ID>, ID> {
-  findById(id: ID): Promise<T | null>;
+export abstract class Repository<T extends BasicModel<ID>, ID> {
+  abstract findById(id: ID): Promise<T | null>;
 
-  find(filter?: Filter<ID>): Promise<T[]>;
+  abstract find(filter?: Filter<ID>): Promise<T[]>;
 
-  save(obj: T): Promise<T | null>;
+  abstract save(obj: T): Promise<T | null>;
 
-  delete(id: ID): Promise<boolean>;
+  abstract delete(id: ID): Promise<boolean>;
 }

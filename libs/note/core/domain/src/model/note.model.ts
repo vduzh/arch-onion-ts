@@ -1,4 +1,4 @@
-import { Model } from '@app/common/core/domain';
+import { BasicModel } from '@app/common/core/domain';
 
 /**
  * At the center part of the Onion Architecture, the domain layer exists; this layer represents the business and behavior objects.
@@ -6,6 +6,6 @@ import { Model } from '@app/common/core/domain';
  * you also could have domain interfaces. These domain entities don’t have any dependencies. Domain objects are also flat as they should be,
  * without any heavy code or dependencies.
  */
-export class Note extends Model<string> {
+export class Note extends BasicModel<string> {
   title: string;
 }

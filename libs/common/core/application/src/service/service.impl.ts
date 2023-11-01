@@ -1,16 +1,16 @@
-import { Model } from '@app/common/core/domain/model/model';
+import { BasicModel } from '@app/common/core/domain/model/basic.model';
 import { Filter, Repository } from '@app/common/core/domain';
 import { Service } from './service';
-import { Dto } from './dto/dto';
-import { ErrorDto } from './dto/error.dto';
+import { AppDto } from './dto/app.dto';
+import { ErrorDto, ErrorName } from './dto/error.dto';
 
 /**
  * The Generic implementation if the Service
  */
 // TODO: Handle errors
-export abstract class AbstractService<
-  D extends Dto<ID>,
-  M extends Model<ID>,
+export abstract class ServiceImpl<
+  D extends AppDto<ID>,
+  M extends BasicModel<ID>,
   ID,
 > implements Service<D, ID>
 {
@@ -31,7 +31,15 @@ export abstract class AbstractService<
 
   async save(dto: D): Promise<D | ErrorDto> {
     const model = await this.repository.save(this.dtoToModel(dto));
-    return Promise.resolve(this.modelToDto(model));
+
+    const res = model
+      ? this.modelToDto(model)
+      : {
+          name: ErrorName.NOT_FOUND,
+          message: `There is no data with id ${dto.id}`,
+        };
+
+    return Promise.resolve(res);
   }
 
   async delete(id: ID): Promise<boolean> {

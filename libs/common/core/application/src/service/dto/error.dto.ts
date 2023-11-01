@@ -1,3 +1,8 @@
+export enum ErrorName {
+  NOT_FOUND = 'NOT_FOUND',
+}
+
 export class ErrorDto {
-  message: string;
+  name: ErrorName;
+  message?: string;
 }

@@ -17,12 +17,12 @@ describe('NoteController', () => {
   });
 
   it('should return the list of notes', async () => {
-    service.find = jest.fn().mockResolvedValue([NOTE_1, NOTE_2]);
+    service.find = jest.fn().mockResolvedValue([DTO_1, DTO_2]);
 
-    const dtos = await resolver.notes();
+    const notes = await resolver.notes();
 
     expect(service.find).toHaveBeenCalled();
-    expect(dtos).toMatchObject([DTO_1, DTO_2]);
+    expect(notes).toMatchObject([NOTE_1, NOTE_2]);
   });
 
   it('should return a note by id', async () => {
@@ -75,7 +75,7 @@ describe('NoteController', () => {
     service.save = saveMock.mockResolvedValue(savedNote);
 
     const pacthDTO = { id: '1', title: 'First note updated' };
-    const dto = await resolver.pacthNote(pacthDTO);
+    const dto = await resolver.patchNote(pacthDTO);
 
     expect(service.findById).toHaveBeenCalled();
     expect(service.save).toHaveBeenCalled();
