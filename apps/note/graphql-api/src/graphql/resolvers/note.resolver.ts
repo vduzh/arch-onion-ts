@@ -8,10 +8,10 @@ import { NoteService, NoteDto } from '@app/note/core/application';
 @Resolver((of) => NoteDto)
 export class NoteResolver extends BasicResolver<
   string,
+  NoteDto,
   Note,
   NoteInput,
-  NoteInput,
-  NoteDto
+  NoteInput
 > {
   constructor(protected service: NoteService) {
     super(service);
@@ -34,33 +34,31 @@ export class NoteResolver extends BasicResolver<
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Query((returns) => [NoteDto])
-  async notes(): Promise<NoteDto[]> {
+  @Query((returns) => [Note])
+  async notes(): Promise<Note[]> {
     return this.list();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Query((returns) => NoteDto, { nullable: true })
-  async note(
-    @Args('id', { type: () => ID }) id: string,
-  ): Promise<NoteDto | null> {
+  @Query((returns) => Note, { nullable: true })
+  async note(@Args('id', { type: () => ID }) id: string): Promise<Note | null> {
     return this.get(id);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Mutation((returns) => NoteDto, { nullable: true })
+  @Mutation((returns) => Note, { nullable: true })
   async saveNote(
     @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
-  ): Promise<NoteDto | null> {
+  ): Promise<Note | null> {
     // // TODO: validate note input
     return this.save(note);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Mutation((returns) => NoteDto, { nullable: true })
+  @Mutation((returns) => Note, { nullable: true })
   async patchNote(
     @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
-  ): Promise<NoteDto | null> {
+  ): Promise<Note | null> {
     // // TODO: validate note input - check for id not null
     // const id = note.id as string;
     return this.patch(note);

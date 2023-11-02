@@ -5,16 +5,16 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 
 export abstract class BasicResolver<
   ID,
+  D extends AppDto<ID>,
   T extends BasicType<ID>,
   I extends BasicInput<ID>,
   P extends BasicInput<ID>,
-  D extends AppDto<ID>,
 > {
   protected constructor(protected service: Service<D, ID>) {}
 
-  public abstract typeToDto(t: T): D;
-
   public abstract inputToType(input: I): T;
+
+  public abstract typeToDto(t: T): D;
 
   public abstract dtoToType(dto: D): T;
 

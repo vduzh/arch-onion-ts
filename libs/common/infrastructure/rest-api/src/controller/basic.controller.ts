@@ -4,15 +4,15 @@ import { RestDto } from "./dto/rest-dto";
 
 export abstract class BasicController<
   ID,
-  A extends AppDto<ID>,
+  D extends AppDto<ID>,
   R extends RestDto<ID>,
   P extends RestDto<ID>,
 > {
-  protected constructor(protected readonly service: Service<A, ID>) {}
+  protected constructor(protected readonly service: Service<D, ID>) {}
 
-  public abstract toRestDto(appDto: A): R;
+  public abstract toRestDto(appDto: D): R;
 
-  public abstract toAppDto(restDto: R): A;
+  public abstract toAppDto(restDto: R): D;
 
   @Get()
   async getAll(): Promise<R[]> {
