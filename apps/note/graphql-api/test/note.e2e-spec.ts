@@ -57,6 +57,24 @@ describe('NoteResolver (e2e)', () => {
       });
   });
 
+  it('should get null as the note is not available', async () => {
+    return request(app.getHttpServer())
+      .post(gql)
+      .send({
+        query: `query($noteId: ID!) {
+          note(id: $noteId) {
+            id
+            title
+          }
+        }`,
+        variables: { noteId: '0' },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.note).toBeNull();
+      });
+  });
+
   it('should add a note', async () => {
     const input = { title: 'Third Note' };
 
@@ -77,7 +95,7 @@ describe('NoteResolver (e2e)', () => {
       });
   });
 
-  it('should save the note', async () => {
+  it('should update the note', async () => {
     const input = { id: '1', title: 'Second Note Updated' };
 
     return request(app.getHttpServer())
@@ -97,7 +115,7 @@ describe('NoteResolver (e2e)', () => {
       });
   });
 
-  it('should not save the note as it does not exisat in the repo', async () => {
+  it('should get null when the updating note is not found', async () => {
     const input = { id: '0', title: 'foo' };
 
     return request(app.getHttpServer())
@@ -114,6 +132,46 @@ describe('NoteResolver (e2e)', () => {
       .expect(200)
       .expect((res) => {
         expect(res.body.data.saveNote).toBeNull();
+      });
+  });
+
+  it('should patch the note', async () => {
+    const patchInput = { id: '1', title: 'Second Note Updated' };
+
+    return request(app.getHttpServer())
+      .post(gql)
+      .send({
+        query: `mutation($note: PatchNoteInput!) {
+          patchNote(note: $note) {
+            id
+            title
+          }
+        }`,
+        variables: { note: patchInput },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.patchNote).toMatchObject(patchInput);
+      });
+  });
+
+  it('should get null when the patching note is not found', async () => {
+    const patchInput = { id: '0', title: 'foo' };
+
+    return request(app.getHttpServer())
+      .post(gql)
+      .send({
+        query: `mutation($note: PatchNoteInput!) {
+          patchNote(note: $note) {
+            id
+            title
+          }
+        }`,
+        variables: { note: patchInput },
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data.patchNote).toBeNull();
       });
   });
 

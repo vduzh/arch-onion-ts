@@ -3,6 +3,7 @@ import { Note } from '../types/note.type';
 import { NoteInput } from '../types/note.input';
 import { BasicResolver } from '@app/common/infrastructure/graphql-api';
 import { NoteService, NoteDto } from '@app/note/core/application';
+import { PatchNoteInput } from '../types/patch-note.input';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 @Resolver((of) => NoteDto)
@@ -11,7 +12,7 @@ export class NoteResolver extends BasicResolver<
   NoteDto,
   Note,
   NoteInput,
-  NoteInput
+  PatchNoteInput
 > {
   constructor(protected service: NoteService) {
     super(service);
@@ -57,7 +58,7 @@ export class NoteResolver extends BasicResolver<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Mutation((returns) => Note, { nullable: true })
   async patchNote(
-    @Args({ name: 'note', type: () => NoteInput }) note: NoteInput,
+    @Args({ name: 'note', type: () => PatchNoteInput }) note: PatchNoteInput,
   ): Promise<Note | null> {
     // // TODO: validate note input - check for id not null
     // const id = note.id as string;

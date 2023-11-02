@@ -1,7 +1,6 @@
 import { BasicInput } from '../types/basic.input';
 import { BasicType } from '../types/basic.type';
-import { Service, AppDto, ErrorDto } from "@app/common/core/application";
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { Service, AppDto, ErrorDto } from '@app/common/core/application';
 
 export abstract class BasicResolver<
   ID,
@@ -31,9 +30,7 @@ export abstract class BasicResolver<
     const value = await this.service.save(this.typeToDto(t));
 
     if (value instanceof ErrorDto) {
-      const e = value as ErrorDto;
-      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-      // throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      return Promise.resolve(null);
     }
 
     return this.dtoToType(value);
@@ -47,9 +44,7 @@ export abstract class BasicResolver<
 
     const value = await this.service.save(this.typeToDto(patchedDto));
     if (value instanceof ErrorDto) {
-      const e = value as ErrorDto;
-      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-      //throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      return null;
     }
     return this.dtoToType(value);
   }
