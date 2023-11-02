@@ -62,14 +62,11 @@ describe('NoteController (e2e)', () => {
       .expect(expected);
   });
 
-  it('/notes/0 (404)', async () => {
-    //.expect(404);
-
+  it('/notes/0 (PUT 404)', async () => {
     return request(app.getHttpServer())
       .put('/notes/0')
       .send({ title: 'Updated note' })
-      .expect(200)
-      .expect('foo');
+      .expect(404);
   });
 
   it('/notes/1 (PATCH)', async () => {

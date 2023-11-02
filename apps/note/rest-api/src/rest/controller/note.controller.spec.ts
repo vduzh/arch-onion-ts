@@ -36,16 +36,15 @@ describe('NoteController', () => {
     expect(note).toMatchObject(NOTE_1);
   });
 
-  it('should return NOT_FOUND exception when getting a note by incorrect id', async () => {
+  it('should return 404 when getting a note', async () => {
     service.findById = jest.fn().mockResolvedValue(null);
 
-    expect.assertions(1);
+    expect.assertions(3);
     try {
       await controller.getById('0');
-    } catch (err) {
-      expect(err).toBeInstanceOf(HttpException);
-      const e = err as HttpException;
-      expect(e.getStatus()).toBe(HttpStatus.NOT_FOUND);
+    } catch (e) {
+      expect(e).toBeInstanceOf(HttpException);
+      expect((e as HttpException).getStatus()).toBe(HttpStatus.NOT_FOUND);
     }
 
     expect(service.findById).toHaveBeenCalled();
@@ -73,20 +72,19 @@ describe('NoteController', () => {
     expect(note).toMatchObject({ ...updateNote, id: dto.id });
   });
 
-  it('should return NOT_FOUND exception when updating a note by incorrect id', async () => {
-    const errorDto: ErrorDto = {
-      name: ErrorName.NOT_FOUND,
-      message: 'The note is not found.',
-    };
+  it('should return 404 while updating a note', async () => {
+    const errorDto = new ErrorDto(
+      ErrorName.NOT_FOUND,
+      'The note is not found.',
+    );
     service.save = jest.fn().mockResolvedValue(errorDto);
 
-    expect.assertions(1);
+    expect.assertions(3);
     try {
       await controller.update({ title: 'Foo' }, '0');
-    } catch (err) {
-      expect(err).toBeInstanceOf(HttpException);
-      const e = err as HttpException;
-      expect(e.getStatus()).toBe(HttpStatus.NOT_FOUND);
+    } catch (e) {
+      expect(e).toBeInstanceOf(HttpException);
+      expect((e as HttpException).getStatus()).toBe(HttpStatus.NOT_FOUND);
     }
     expect(service.save).toHaveBeenCalled();
   });
@@ -108,6 +106,26 @@ describe('NoteController', () => {
     expect(note).toMatchObject({ ...patchNote, id: dto.id });
   });
 
+  it('should return 404 while patching a note', async () => {
+    service.findById = jest.fn().mockResolvedValue(null);
+
+    const errorDto = new ErrorDto(
+      ErrorName.NOT_FOUND,
+      'The note is not found.',
+    );
+    service.save = jest.fn().mockResolvedValue(errorDto);
+
+    expect.assertions(4);
+    try {
+      await controller.patch({ title: 'foo' }, '0');
+    } catch (e) {
+      expect(e).toBeInstanceOf(HttpException);
+      expect((e as HttpException).getStatus()).toBe(HttpStatus.NOT_FOUND);
+    }
+    expect(service.findById).toHaveBeenCalled();
+    expect(service.save).toHaveBeenCalled();
+  });
+
   it('should delete a note', async () => {
     service.delete = jest.fn().mockResolvedValue(true);
 
@@ -115,15 +133,15 @@ describe('NoteController', () => {
     expect(service.delete).toHaveBeenCalled();
   });
 
-  it('should delete return 404 code', async () => {
+  it('should return 404 while deleting', async () => {
     service.delete = jest.fn().mockResolvedValue(false);
 
+    expect.assertions(3);
     try {
       await controller.delete('1');
-    } catch (err) {
-      expect(err).toBeInstanceOf(HttpException);
-      const e = err as HttpException;
-      expect(e.getStatus()).toBe(HttpStatus.NOT_FOUND);
+    } catch (e) {
+      expect(e).toBeInstanceOf(HttpException);
+      expect((e as HttpException).getStatus()).toBe(HttpStatus.NOT_FOUND);
     }
 
     expect(service.delete).toHaveBeenCalled();

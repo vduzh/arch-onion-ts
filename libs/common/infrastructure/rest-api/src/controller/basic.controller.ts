@@ -1,16 +1,6 @@
-import {
-  Body,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Patch,
-  Post,
-  Put,
-} from '@nestjs/common';
-import { Service, AppDto, ErrorDto } from '@app/common/core/application';
-import { RestDto } from './dto/rest-dto';
+import { Body, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put } from "@nestjs/common";
+import { AppDto, ErrorDto, ErrorName, Service } from "@app/common/core/application";
+import { RestDto } from "./dto/rest-dto";
 
 export abstract class BasicController<
   ID,
@@ -53,8 +43,10 @@ export abstract class BasicController<
     const value = await this.service.save(this.toAppDto({ ...res, id }));
     if (value instanceof ErrorDto) {
       const e = value as ErrorDto;
-      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-      // throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      if (e.name === ErrorName.NOT_FOUND) {
+        throw new HttpException(e.message, HttpStatus.NOT_FOUND);
+      }
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     }
     return this.toRestDto(value);
   }
@@ -70,8 +62,10 @@ export abstract class BasicController<
     const value = await this.service.save(this.toAppDto(patchedDto));
     if (value instanceof ErrorDto) {
       const e = value as ErrorDto;
-      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-      //throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      if (e.name === ErrorName.NOT_FOUND) {
+        throw new HttpException(e.message, HttpStatus.NOT_FOUND);
+      }
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
     }
     return this.toRestDto(value);
   }

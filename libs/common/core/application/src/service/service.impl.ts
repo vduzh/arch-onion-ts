@@ -34,10 +34,7 @@ export abstract class ServiceImpl<
 
     const res = model
       ? this.modelToDto(model)
-      : {
-          name: ErrorName.NOT_FOUND,
-          message: `There is no data with id ${dto.id}`,
-        };
+      : new ErrorDto(ErrorName.NOT_FOUND, `There is no data with id ${dto.id}`);
 
     return Promise.resolve(res);
   }

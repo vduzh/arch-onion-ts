@@ -3,6 +3,10 @@ export enum ErrorName {
 }
 
 export class ErrorDto {
-  name: ErrorName;
-  message?: string;
+  //name: ErrorName;
+  //message?: string;
+  constructor(
+    public name: ErrorName,
+    public message: string,
+  ) {}
 }
